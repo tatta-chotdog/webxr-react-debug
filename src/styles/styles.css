@@ -1,0 +1,50 @@
+/* アプリケーション全体のスタイル */
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.canvas-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* VRボタンのスタイル */
+.vr-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  background-color: #4c58ffcc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+}
+
+.vr-button:hover {
+  background-color: #3c45c8cc;
+}
+
+.vr-button.active {
+  background-color: #4caf50;
+}
+
+.vr-button.active:hover {
+  background-color: #45a049;
+}
+
+/* Canvasコンテナのスタイル */
+.canvas-wrapper {
+  width: 100vw;
+  height: 100vh;
+}
