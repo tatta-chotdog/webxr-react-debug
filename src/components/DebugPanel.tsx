@@ -18,6 +18,7 @@ import {
   BUTTON_POSITIONS,
   BUTTON_MATERIALS,
 } from "../constants/debugPanel";
+import { useXR } from "@react-three/xr";
 
 // ボタンのコンポーネント
 const Button = ({
@@ -175,10 +176,11 @@ const ColorControl = ({
   );
 };
 
-export function DebugPanel() {
+export const DebugPanel = () => {
   const panelRef = useRef<THREE.Group>(null);
   const { color, setColor, rotationSpeed, setRotationSpeed, scale, setScale } =
     useBoxStore();
+  const { session } = useXR();
 
   // パネルの位置をカメラに追従させる
   useFrame(({ camera }) => {
@@ -193,20 +195,16 @@ export function DebugPanel() {
       panelRef.current.position.copy(camera.position);
       panelRef.current.position.add(centerVector);
 
-      // カメラのクォータニオンをコピー
       const panelQuaternion = camera.quaternion.clone();
-      // X軸周りに23度（約0.4ラジアン）回転
       const tiltQuaternion = new THREE.Quaternion().setFromAxisAngle(
         new THREE.Vector3(1, 0, 0),
         -0.4
       );
-      // 回転を適用
       panelQuaternion.multiply(tiltQuaternion);
       panelRef.current.quaternion.copy(panelQuaternion);
     }
   });
 
-  // 値の変更ハンドラー
   const handleSpeedChange = (delta: number) => {
     const newSpeed = Math.min(
       Math.max(rotationSpeed + delta, VALUE_RANGES.speed.min),
@@ -227,6 +225,12 @@ export function DebugPanel() {
     e.stopPropagation();
     const newValue = COLORS[(COLORS.indexOf(color) + 1) % COLORS.length];
     setColor(newValue);
+  };
+
+  const handleExitXR = async () => {
+    if (session) {
+      await session.end();
+    }
   };
 
   return (
@@ -268,6 +272,16 @@ export function DebugPanel() {
         onIncrease={() => handleScaleChange(0.1)}
         onDecrease={() => handleScaleChange(-0.1)}
       />
+
+      {/* Exit XRボタン */}
+      <group position={CONTROL_POSITIONS.xr}>
+        <Button
+          position={[0, 0, 0]}
+          onClick={handleExitXR}
+          label="Exit XR"
+          isWide={true}
+        />
+      </group>
     </group>
   );
-}
+};

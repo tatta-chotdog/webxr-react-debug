@@ -5,22 +5,23 @@ export const BACKGROUND_COLOR = "#2A2A2A";
 // Positions
 export const PANEL_POSITION = {
   x: 0.05,
-  y: -0.17,
-  z: -0.35,
+  y: -0.2,
+  z: -0.45,
 } as const;
 
 export const CONTROL_POSITIONS = {
-  title: [0, 0.08, 0.02],
-  color: [0, 0.04, 0.02],
-  speed: [0, -0.01, 0.02],
+  title: [0, 0.11, 0.02],
+  color: [0, 0.06, 0.02],
+  speed: [0, 0.0, 0.02],
   scale: [0, -0.06, 0.02],
+  xr: [0, -0.115, 0.02],
   label: [-0.12, 0, 0],
 } as const;
 
 // Dimensions
 export const PANEL_DIMENSIONS = {
   width: 0.35,
-  height: 0.22,
+  height: 0.3,
   depth: 0.02,
   radius: 0.02,
   smoothness: 4,

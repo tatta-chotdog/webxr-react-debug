@@ -15,6 +15,6 @@ export const useBoxStore = create<BoxState>((set) => ({
   rotationSpeed: 1,
   scale: 1,
   setColor: (color) => set({ color }),
-  setRotationSpeed: (rotationSpeed) => set({ rotationSpeed }),
+  setRotationSpeed: (speed) => set({ rotationSpeed: speed }),
   setScale: (scale) => set({ scale }),
 }));
