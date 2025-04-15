@@ -13,7 +13,7 @@ export function Box() {
   });
 
   return (
-    <mesh ref={meshRef} scale={scale} position={[0, 1.2, -1]}>
+    <mesh ref={meshRef} scale={scale} position={[0, 1.5, -1]}>
       <boxGeometry args={[0.3, 0.3, 0.3]} />
       <meshBasicMaterial color={color} toneMapped={false} />
     </mesh>
