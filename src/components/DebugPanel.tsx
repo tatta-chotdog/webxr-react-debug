@@ -99,17 +99,92 @@ const Button = ({
   );
 };
 
+// スライダーコンポーネント
+const Slider = ({
+  value,
+  min,
+  max,
+  onChange,
+  position,
+}: {
+  value: number;
+  min: number;
+  max: number;
+  onChange: (value: number) => void;
+  position: [number, number, number];
+}) => {
+  const [isDragging, setIsDragging] = useState(false);
+  const sliderRef = useRef<THREE.Group>(null);
+  const trackWidth = 0.12;
+  const trackHeight = 0.01;
+  const knobRadius = 0.01;
+
+  const handlePointerDown = (e: ThreeEvent<PointerEvent>) => {
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handlePointerUp = () => {
+    setIsDragging(false);
+  };
+
+  const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {
+    if (!isDragging || !sliderRef.current) return;
+
+    const localX = e.point.x - sliderRef.current.position.x;
+    const normalizedValue = (localX + trackWidth / 2) / trackWidth;
+    const newValue = Math.min(
+      Math.max(normalizedValue * (max - min) + min, min),
+      max
+    );
+    onChange(newValue);
+  };
+
+  const knobPosition = [
+    ((value - min) / (max - min) - 0.5) * trackWidth,
+    0,
+    0.01,
+  ] as [number, number, number];
+
+  return (
+    <group
+      ref={sliderRef}
+      position={position}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerMove={handlePointerMove}
+    >
+      {/* トラック */}
+      <RoundedBox
+        args={[trackWidth, trackHeight, 0.005]}
+        radius={0.002}
+        smoothness={4}
+      >
+        <meshStandardMaterial color="#444444" />
+      </RoundedBox>
+
+      {/* ノブ */}
+      <mesh position={knobPosition}>
+        <sphereGeometry args={[knobRadius, 32, 32]} />
+        <meshStandardMaterial color={isDragging ? "#4CAF50" : "#666666"} />
+      </mesh>
+    </group>
+  );
+};
+
 // コントロールのコンポーネント
 const Control = ({
   type,
   value,
   onIncrease,
   onDecrease,
+  onChange,
 }: {
   type: "speed" | "scale";
   value: number;
   onIncrease: () => void;
   onDecrease: () => void;
+  onChange?: (value: number) => void;
 }) => {
   return (
     <group position={CONTROL_POSITIONS[type]}>
@@ -120,23 +195,37 @@ const Control = ({
       >
         {type === "speed" ? "💫Speed:" : "📏Scale:"}
       </Text>
-      <Text
-        position={BUTTON_POSITIONS.value}
-        fontSize={FONT_SIZES.label}
-        {...COMMON_TEXT_PROPS}
-      >
-        {value.toFixed(1)}
-      </Text>
-      <Button
-        position={[...BUTTON_POSITIONS.plus]}
-        onClick={() => onIncrease()}
-        label="+"
-      />
-      <Button
-        position={[...BUTTON_POSITIONS.minus]}
-        onClick={() => onDecrease()}
-        label="-"
-      />
+      {type === "scale" && (
+        <Text
+          position={BUTTON_POSITIONS.value}
+          fontSize={FONT_SIZES.label}
+          {...COMMON_TEXT_PROPS}
+        >
+          {value.toFixed(1)}
+        </Text>
+      )}
+      {type === "speed" && onChange ? (
+        <Slider
+          value={value}
+          min={VALUE_RANGES.speed.min}
+          max={VALUE_RANGES.speed.max}
+          onChange={onChange}
+          position={[0.04, 0, 0.01]}
+        />
+      ) : (
+        <>
+          <Button
+            position={[...BUTTON_POSITIONS.plus]}
+            onClick={() => onIncrease()}
+            label="+"
+          />
+          <Button
+            position={[...BUTTON_POSITIONS.minus]}
+            onClick={() => onDecrease()}
+            label="-"
+          />
+        </>
+      )}
     </group>
   );
 };
@@ -205,11 +294,7 @@ export const DebugPanel = () => {
     }
   });
 
-  const handleSpeedChange = (delta: number) => {
-    const newSpeed = Math.min(
-      Math.max(rotationSpeed + delta, VALUE_RANGES.speed.min),
-      VALUE_RANGES.speed.max
-    );
+  const handleSpeedChange = (newSpeed: number) => {
     setRotationSpeed(newSpeed);
   };
 
@@ -263,8 +348,9 @@ export const DebugPanel = () => {
       <Control
         type="speed"
         value={rotationSpeed}
-        onIncrease={() => handleSpeedChange(0.1)}
-        onDecrease={() => handleSpeedChange(-0.1)}
+        onIncrease={() => handleSpeedChange(rotationSpeed + 0.1)}
+        onDecrease={() => handleSpeedChange(rotationSpeed - 0.1)}
+        onChange={handleSpeedChange}
       />
       <Control
         type="scale"
