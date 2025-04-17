@@ -3,6 +3,7 @@ import { ThreeEvent } from "@react-three/fiber";
 import { RoundedBox } from "@react-three/drei";
 import * as THREE from "three";
 import { SLIDER_MATERIAL_PROPS } from "../../constants/materials";
+import { SLIDER_COLORS } from "../../constants/colors";
 
 interface SliderProps {
   value: number;
@@ -60,7 +61,6 @@ export const Slider = ({
       onPointerUp={handlePointerUp}
       onPointerMove={handlePointerMove}
     >
-      {/* トラック */}
       <RoundedBox
         args={[trackWidth, trackHeight, 0.005]}
         radius={0.002}
@@ -68,11 +68,11 @@ export const Slider = ({
       >
         <meshStandardMaterial {...SLIDER_MATERIAL_PROPS} />
       </RoundedBox>
-
-      {/* ノブ */}
       <mesh position={knobPosition}>
         <sphereGeometry args={[knobRadius, 32, 32]} />
-        <meshStandardMaterial color={isDragging ? "#4CAF50" : "#666666"} />
+        <meshStandardMaterial
+          color={isDragging ? SLIDER_COLORS.dragging : SLIDER_COLORS.default}
+        />
       </mesh>
     </group>
   );

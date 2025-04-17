@@ -21,3 +21,8 @@ export const BUTTON_TEXT_COLORS = {
   DEFAULT: "#FFFFFF",
   EXIT_XR: "#2A2A2A",
 } as const;
+
+export const SLIDER_COLORS = {
+  default: "#666666",
+  dragging: "#4CAF50",
+} as const;
