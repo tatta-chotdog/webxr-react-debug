@@ -16,7 +16,6 @@ import {
   BACKGROUND_MATERIAL_PROPS,
   BUTTON_DIMENSIONS,
   BUTTON_POSITIONS,
-  BUTTON_MATERIALS,
 } from "../constants/debugPanel";
 import { useXR } from "@react-three/xr";
 
@@ -34,60 +33,29 @@ const Button = ({
   isWide?: boolean;
   customColor?: string;
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isPressed, setIsPressed] = useState(false);
   const dimensions = isWide
     ? BUTTON_DIMENSIONS.wide
     : BUTTON_DIMENSIONS.standard;
 
-  // カスタムカラーがある場合は、その色をベースに状態に応じた色を計算
-  const getButtonColor = () => {
-    if (customColor) {
-      return customColor;
-    }
-
-    const baseColor =
-      isHovered || isPressed
-        ? BUTTON_MATERIALS.hover
-        : BUTTON_MATERIALS.default;
-    if (isPressed) {
-      // ホバー色をベースに明るさを10%上げる
-      const color = new THREE.Color(baseColor);
-      const hsl = { h: 0, s: 0, l: 0 };
-      color.getHSL(hsl);
-      color.setHSL(hsl.h, hsl.s, Math.min(1, hsl.l + 0.3));
-      return "#" + color.getHexString();
-    }
-    return baseColor;
-  };
-
   const handlePointerDown = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
-    setIsPressed(true);
     onClick(e);
-    setTimeout(() => setIsPressed(false), 300);
-  };
-
-  const buttonMaterial = {
-    color: getButtonColor(),
-    metalness: BUTTON_MATERIALS.metalness,
-    roughness: BUTTON_MATERIALS.roughness,
   };
 
   return (
     <group position={position}>
       <RoundedBox
-        args={[dimensions.width, dimensions.height, dimensions.depth]}
+        args={[dimensions.width, dimensions.height, dimensions.depth * 0.1]}
         radius={dimensions.radius}
         smoothness={dimensions.smoothness}
-        onPointerEnter={() => setIsHovered(true)}
-        onPointerLeave={() => setIsHovered(false)}
         onPointerDown={handlePointerDown}
+        pointerEventsType={{ deny: "grab" }}
+        position={[0, 0, dimensions.depth * 0.1]}
       >
-        <meshStandardMaterial {...buttonMaterial} />
+        <meshBasicMaterial color={customColor || "blue"} />
       </RoundedBox>
       <Text
-        position={[0, 0, dimensions.depth / 2 + 0.001]}
+        position={[0, 0, dimensions.depth * 0.1 + 0.001]}
         fontSize={dimensions.fontSize}
         {...COMMON_TEXT_PROPS}
         anchorX="center"
@@ -239,6 +207,7 @@ const ColorControl = ({
   const { color } = useBoxStore();
 
   const handleButtonClick = (e: ThreeEvent<PointerEvent>) => {
+    e.stopPropagation();
     onClick(e);
   };
 
