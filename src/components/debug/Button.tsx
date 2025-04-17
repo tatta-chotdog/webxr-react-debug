@@ -33,7 +33,10 @@ export const Button = ({
     e.stopPropagation();
     setIsPressed(true);
     onClick(e);
-    setTimeout(() => setIsPressed(false), 200);
+  };
+
+  const handlePointerUp = () => {
+    setIsPressed(false);
   };
 
   // ボタンの種類に応じて色を設定
@@ -59,6 +62,7 @@ export const Button = ({
           radius={dimensions.radius}
           smoothness={dimensions.smoothness}
           onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
           pointerEventsType={{ deny: "grab" }}
           position={[0, 0, dimensions.depth * 0.1]}
         >

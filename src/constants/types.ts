@@ -3,8 +3,4 @@ export const VALUE_RANGES = {
     min: 0,
     max: 5,
   },
-  scale: {
-    min: 0.5,
-    max: 2,
-  },
 } as const;

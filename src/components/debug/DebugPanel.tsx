@@ -21,14 +21,15 @@ export const DebugPanel = () => {
     useBoxStore();
   const { session } = useXR();
 
+  const centerVector = new THREE.Vector3(
+    PANEL_POSITION.x,
+    PANEL_POSITION.y,
+    PANEL_POSITION.z
+  );
+
   // パネルの位置をカメラに追従させる
   useFrame(({ camera }) => {
     if (panelRef.current) {
-      const centerVector = new THREE.Vector3(
-        PANEL_POSITION.x,
-        PANEL_POSITION.y,
-        PANEL_POSITION.z
-      );
       panelRef.current.position.copy(centerVector);
 
       // カメラの向きをコピー
@@ -43,6 +44,12 @@ export const DebugPanel = () => {
     }
   });
 
+  const handleColorClick = () => {
+    const currentIndex = COLORS.indexOf(color);
+    const nextIndex = (currentIndex + 1) % COLORS.length;
+    setColor(COLORS[nextIndex]);
+  };
+
   const handleSpeedChange = (newSpeed: number) => {
     setRotationSpeed(newSpeed);
   };
@@ -50,12 +57,6 @@ export const DebugPanel = () => {
   const handleScaleChange = (delta: number) => {
     const newScale = Math.min(Math.max(scale + delta, 0.5), 2);
     setScale(newScale);
-  };
-
-  const handleColorClick = () => {
-    const currentIndex = COLORS.indexOf(color);
-    const nextIndex = (currentIndex + 1) % COLORS.length;
-    setColor(COLORS[nextIndex]);
   };
 
   const handleExitXR = async () => {
