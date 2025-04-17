@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { ThreeEvent } from "@react-three/fiber";
 import { RoundedBox } from "@react-three/drei";
 import * as THREE from "three";
+import { SLIDER_MATERIAL_PROPS } from "../../constants/materials";
 
 interface SliderProps {
   value: number;
@@ -65,7 +66,7 @@ export const Slider = ({
         radius={0.002}
         smoothness={4}
       >
-        <meshStandardMaterial color="#444444" />
+        <meshStandardMaterial {...SLIDER_MATERIAL_PROPS} />
       </RoundedBox>
 
       {/* ノブ */}

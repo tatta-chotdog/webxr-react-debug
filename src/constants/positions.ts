@@ -17,5 +17,5 @@ export const BUTTON_POSITIONS = {
   plus: [0.1, 0, 0.01],
   minus: [-0.02, 0, 0.01],
   color: [0.04, 0, 0.01],
-  value: [0.03, 0, 0.01],
+  value: [0.04, 0, 0.01],
 } as const;

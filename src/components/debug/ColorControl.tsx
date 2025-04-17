@@ -5,6 +5,7 @@ import { useBoxStore } from "../../stores/boxStore";
 import { COLORS } from "../../constants/colors";
 import { CONTROL_POSITIONS, BUTTON_POSITIONS } from "../../constants/positions";
 import { FONT_SIZES } from "../../constants/dimensions";
+import { LABEL_TEXT_PROPS } from "../../constants/materials";
 
 interface ColorControlProps {
   onClick: (e: ThreeEvent<PointerEvent>) => void;
@@ -25,8 +26,7 @@ export const ColorControl = ({ onClick }: ColorControlProps) => {
       <Text
         position={CONTROL_POSITIONS.label}
         fontSize={FONT_SIZES.label}
-        color="white"
-        anchorX="left"
+        {...LABEL_TEXT_PROPS}
       >
         🎨Color:
       </Text>

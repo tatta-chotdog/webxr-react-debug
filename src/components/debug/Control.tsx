@@ -4,6 +4,7 @@ import { Slider } from "./Slider";
 import { CONTROL_POSITIONS, BUTTON_POSITIONS } from "../../constants/positions";
 import { FONT_SIZES } from "../../constants/dimensions";
 import { VALUE_RANGES } from "../../constants/types";
+import { LABEL_TEXT_PROPS, BUTTON_TEXT_PROPS } from "../../constants/materials";
 
 interface ControlProps {
   type: "speed" | "scale";
@@ -25,8 +26,7 @@ export const Control = ({
       <Text
         position={CONTROL_POSITIONS.label}
         fontSize={FONT_SIZES.label}
-        color="white"
-        anchorX="left"
+        {...LABEL_TEXT_PROPS}
       >
         {type === "speed" ? "💫Speed:" : "📏Scale:"}
       </Text>
@@ -34,8 +34,7 @@ export const Control = ({
         <Text
           position={BUTTON_POSITIONS.value}
           fontSize={FONT_SIZES.label}
-          color="white"
-          anchorX="left"
+          {...BUTTON_TEXT_PROPS}
         >
           {value.toFixed(1)}
         </Text>

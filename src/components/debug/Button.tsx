@@ -2,6 +2,7 @@ import { ThreeEvent } from "@react-three/fiber";
 import { Text, RoundedBox } from "@react-three/drei";
 import { BUTTON_DIMENSIONS } from "../../constants/dimensions";
 import { BUTTON_COLORS, BUTTON_TEXT_COLORS } from "../../constants/colors";
+import { BUTTON_TEXT_PROPS } from "../../constants/materials";
 import { useSpring, animated } from "@react-spring/three";
 import { useState } from "react";
 
@@ -71,8 +72,7 @@ export const Button = ({
           position={[0, 0, dimensions.depth * 0.1 + 0.001]}
           fontSize={dimensions.fontSize}
           color={getTextColor()}
-          anchorX="center"
-          anchorY="middle"
+          {...BUTTON_TEXT_PROPS}
         >
           {label}
         </Text>
