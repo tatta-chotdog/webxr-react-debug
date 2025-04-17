@@ -27,14 +27,12 @@ export const DebugPanel = () => {
     PANEL_POSITION.z
   );
 
-  // パネルの位置をカメラに追従させる
+  // Make the panel follow the camera
   useFrame(({ camera }) => {
     if (panelRef.current) {
       panelRef.current.position.copy(centerVector);
 
-      // カメラの向きをコピー
       const quaternion = new THREE.Quaternion().copy(camera.quaternion);
-      // 上向きに15度傾ける
       const tilt = new THREE.Quaternion().setFromAxisAngle(
         new THREE.Vector3(1, 0, 0),
         THREE.MathUtils.degToRad(-15)

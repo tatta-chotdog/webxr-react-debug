@@ -18,7 +18,6 @@ export const ColorControl = ({ onClick }: ColorControlProps) => {
     onClick(e);
   };
 
-  // 次の色を取得
   const nextColor = COLORS[(COLORS.indexOf(color) + 1) % COLORS.length];
 
   return (

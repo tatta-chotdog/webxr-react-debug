@@ -1,6 +1,7 @@
 import { ThreeEvent } from "@react-three/fiber";
 import { Text, RoundedBox } from "@react-three/drei";
 import { BUTTON_DIMENSIONS } from "../../constants/dimensions";
+import { BUTTON_COLORS, BUTTON_TEXT_COLORS } from "../../constants/colors";
 import { useSpring, animated } from "@react-spring/three";
 import { useState } from "react";
 
@@ -39,19 +40,17 @@ export const Button = ({
     setIsPressed(false);
   };
 
-  // ボタンの種類に応じて色を設定
   const getButtonColor = () => {
     if (customColor) return customColor;
-    if (label === "+") return "#FF6B6B"; // コーラルレッド
-    if (label === "-") return "#4ECDC4"; // ターコイズ
-    if (label === "Exit XR") return "white"; // Debug Panelの文字色と同じ
-    return "#3A3A3A"; // デフォルト
+    if (label === "+") return BUTTON_COLORS.CORAL_RED;
+    if (label === "-") return BUTTON_COLORS.TURQUOISE;
+    if (label === "Exit XR") return BUTTON_COLORS.WHITE;
+    return BUTTON_COLORS.DEFAULT_BACKGROUND;
   };
 
-  // ボタンの文字色を設定
   const getTextColor = () => {
-    if (label === "Exit XR") return "#2A2A2A"; // Debug Panelの背景色と同じ
-    return "white"; // デフォルト
+    if (label === "Exit XR") return BUTTON_TEXT_COLORS.EXIT_XR;
+    return BUTTON_TEXT_COLORS.DEFAULT;
   };
 
   return (

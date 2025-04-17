@@ -16,8 +16,8 @@ export const App = () => {
           return;
         }
 
-        // PC上でデバッグするためのXRデバイスエミュレーション
-        // 実機での動作確認時は、この部分をコメントアウトしてください
+        // XR device emulation for debugging on PC
+        // Comment out this part when testing on actual device
         const xrDevice = new XRDevice(metaQuest3);
         xrDevice.installRuntime();
 
