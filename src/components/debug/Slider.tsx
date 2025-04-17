@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
+import * as THREE from "three";
 import { ThreeEvent } from "@react-three/fiber";
 import { RoundedBox } from "@react-three/drei";
-import * as THREE from "three";
 import { SLIDER_MATERIAL_PROPS } from "../../constants/materials";
 import { SLIDER_COLORS } from "../../constants/colors";
+import { startSliderSound, stopSliderSound } from "../../utils/audio";
 
 interface SliderProps {
   value: number;
@@ -29,10 +30,12 @@ export const Slider = ({
   const handlePointerDown = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     setIsDragging(true);
+    startSliderSound();
   };
 
   const handlePointerUp = () => {
     setIsDragging(false);
+    stopSliderSound();
   };
 
   const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {

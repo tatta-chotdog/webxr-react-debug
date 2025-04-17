@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useFrame } from "@react-three/fiber";
 import { useBoxStore } from "../stores/boxStore";
 
 export function Box() {

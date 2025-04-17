@@ -1,9 +1,9 @@
-import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import { Text, RoundedBox } from "@react-three/drei";
 import * as THREE from "three";
-import { useBoxStore } from "../../stores/boxStore";
+import { useFrame } from "@react-three/fiber";
+import { Text, RoundedBox } from "@react-three/drei";
 import { useXR } from "@react-three/xr";
+import { useBoxStore } from "../../stores/boxStore";
 import { Control } from "./Control";
 import { ColorControl } from "./ColorControl";
 import { Button } from "./Button";
