@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { COLORS } from "../constants/debugPanel";
+import { COLORS } from "../constants/colors";
 
 interface BoxState {
   color: string;

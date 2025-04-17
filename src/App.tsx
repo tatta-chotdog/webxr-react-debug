@@ -39,7 +39,7 @@ export const App = () => {
 
   return (
     <div className="canvas-wrapper">
-      <Canvas>
+      <Canvas shadows>
         <XR store={store}>
           <Experience />
         </XR>

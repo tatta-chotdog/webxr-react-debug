@@ -13,9 +13,17 @@ export function Box() {
   });
 
   return (
-    <mesh ref={meshRef} scale={scale} position={[0, 1.5, -1]}>
+    <mesh ref={meshRef} scale={scale} position={[0, 1.5, -1]} castShadow>
       <boxGeometry args={[0.3, 0.3, 0.3]} />
-      <meshBasicMaterial color={color} toneMapped={false} />
+      <meshStandardMaterial
+        color={color}
+        metalness={0.1}
+        roughness={0.1}
+        envMapIntensity={1}
+        toneMapped={true}
+        emissive={color}
+        emissiveIntensity={0.2}
+      />
     </mesh>
   );
 }
