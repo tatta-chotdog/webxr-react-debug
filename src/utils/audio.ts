@@ -7,7 +7,7 @@ export const playButtonSound = () => {
 
 let sliderAudio: HTMLAudioElement | null = null;
 
-export const startSliderSound = () => {
+export const playSliderSound = () => {
   if (!sliderAudio) {
     sliderAudio = new Audio("/audio/slider.wav");
     sliderAudio.loop = true;
