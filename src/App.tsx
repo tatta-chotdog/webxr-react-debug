@@ -1,44 +1,36 @@
 import { useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { XR, createXRStore } from "@react-three/xr";
-import { XRDevice, metaQuest3 } from "iwer";
 import { Experience } from "./components/Experience";
+import { Title } from "./components/Title";
+import { useXRStore } from "./stores/useXRStore";
 import "./styles/styles.css";
 
 const store = createXRStore();
 
 export const App = () => {
+  const { setIsInVR } = useXRStore();
+
   useEffect(() => {
-    const initializeXR = async () => {
-      try {
-        if (!navigator.xr) {
-          console.error("WebXR API is not supported");
-          return;
-        }
+    const handleSessionStart = () => setIsInVR(true);
+    const handleSessionEnd = () => setIsInVR(false);
 
-        // XR device emulation for debugging on PC
-        // Comment out this part when testing on actual device
-        const xrDevice = new XRDevice(metaQuest3);
-        xrDevice.installRuntime();
-
-        const isSupported = await navigator.xr.isSessionSupported(
-          "immersive-vr"
-        );
-
-        if (!isSupported) {
-          console.error("VR is not supported on this device");
-          return;
-        }
-      } catch (error) {
-        console.error("Failed to initialize XR:", error);
+    store.subscribe((state) => {
+      if (state.session) {
+        handleSessionStart();
+      } else {
+        handleSessionEnd();
       }
-    };
+    });
 
-    initializeXR();
-  }, []);
+    return () => {
+      store.destroy();
+    };
+  }, [setIsInVR]);
 
   return (
     <div className="canvas-wrapper">
+      <Title />
       <Canvas shadows>
         <XR store={store}>
           <Experience />

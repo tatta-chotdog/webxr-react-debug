@@ -19,3 +19,40 @@
   width: 100vw;
   height: 100vh;
 }
+
+.title-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.title-text {
+  font-size: 4rem;
+  font-weight: bold;
+  font-family: "Noto Sans JP", "Hiragino Sans", "Meiryo", "Yu Gothic",
+    sans-serif;
+  background: linear-gradient(45deg, #39c2a4, #95f5d5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  animation: titleAnimation 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleAnimation {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}

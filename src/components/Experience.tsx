@@ -1,7 +1,12 @@
 import { Box } from "./Box";
 import { DebugPanel } from "./debug/DebugPanel";
+import { useXRStore } from "../stores/useXRStore";
 
 export const Experience = () => {
+  const { isInVR } = useXRStore();
+
+  if (!isInVR) return null;
+
   return (
     <>
       <ambientLight intensity={0.5} />
