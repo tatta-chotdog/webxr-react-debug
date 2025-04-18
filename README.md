@@ -1,54 +1,37 @@
-# React + TypeScript + Vite
+# WebXR React Debug
+You can tweak the box’s color, rotation speed, and scale using the debug panel.<br>
+The sound effects are original, so feel free to use them however you like.<br><br>
+![debugPanel](https://github.com/user-attachments/assets/156bb424-8e23-434b-8ee6-4a16e25103c7)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## How to run it on your HMD?
+### 1. Try it on Vercel  
+The project is deployed on Vercel. You can access it directly via the following link:  
 
-Currently, two official plugins are available:
+👉 **[Live Demo](https://webxr-react-debug.vercel.app/)**  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 2. Run it Locally  
+1. Run the following command.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+yarn
+yarn dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2.  Open the following link in a browser that supports WebXR on an HMD.(Replace "?" with the IP address)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+`https://???.???.?.?:8081/`
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Learn More
+### WebXR
+
+https://immersiveweb.dev/
+
+https://immersive-web.github.io/webxr/explainer.html
+
+https://developers.meta.com/horizon/documentation/web/webxr-overview
+
+https://developers.meta.com/horizon/develop/web
+
+### react-three/xr
+
+https://github.com/pmndrs/xr
