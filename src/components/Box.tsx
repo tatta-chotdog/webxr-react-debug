@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useBoxStore } from "../stores/boxStore";
 
-export function Box() {
+export const Box = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const { color, rotationSpeed, scale } = useBoxStore();
 
@@ -26,4 +26,4 @@ export function Box() {
       />
     </mesh>
   );
-}
+};
